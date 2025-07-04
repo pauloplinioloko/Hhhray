@@ -894,7 +894,7 @@ local RayfieldLibrary = {
 
 		semnexo = {
 
-			TextColor = Color3.fromRGB(139, 0, 0),
+			TextColor = Color3.fromRGB(218, 165, 32),
 
 
 
@@ -914,13 +914,13 @@ local RayfieldLibrary = {
 
 			TabBackground = Color3.fromRGB(0, 0, 0),
 
-			TabStroke = Color3.fromRGB(0, 0, 0),
+			TabStroke = Color3.fromRGB(218, 165, 32),
 
 			TabBackgroundSelected = Color3.fromRGB(0, 0, 0),
 
-			TabTextColor = Color3.fromRGB(139, 0, 0),
+			TabTextColor = Color3.fromRGB(218, 165, 32),
 
-			SelectedTabTextColor = Color3.fromRGB(139, 0, 0),
+			SelectedTabTextColor = Color3.fromRGB(218, 165, 32),
 
 
 
@@ -970,8 +970,7 @@ local RayfieldLibrary = {
 
 			InputStroke = Color3.fromRGB(0, 0, 0),
 
-			PlaceholderColor = Color3.fromRGB(139, 0, 0)
-
+			PlaceholderColor = Color3.fromRGB(218, 165, 32)
 		},
 
 
