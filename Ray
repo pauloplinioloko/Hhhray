@@ -974,8 +974,7 @@ local RayfieldLibrary = {
 		},
 
 
-
-		Corinthians = {
+		Coringa = {
 
 			TextColor = Color3.fromRGB(255, 255, 255),
 
@@ -1056,7 +1055,6 @@ local RayfieldLibrary = {
 			PlaceholderColor = Color3.fromRGB(200, 0, 0)
 
 		},
-
 
 
 		Bloom = {
