@@ -644,7 +644,7 @@ local RayfieldLibrary = {
 		},
 
 
-		Ocean = {
+		Diferenciado = {
 
                         TextColor = Color3.fromRGB(255, 255, 255),
 
