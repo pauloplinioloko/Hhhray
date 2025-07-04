@@ -554,7 +554,6 @@ if debugX then
 end
 
 
-
 local RayfieldLibrary = {
 
 	Flags = {},
@@ -1302,9 +1301,6 @@ local RayfieldLibrary = {
 	}
 
 }
-
-
-
 
 
 -- Services
