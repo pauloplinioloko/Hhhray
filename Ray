@@ -524,15 +524,14 @@ if promptUser == 1 and prompt and type(prompt.create) == "function" then
 
 	prompt.create(
 
-		'Be cautious when running scripts',
+		'U N I T E D  H U B',
 
-	    [[Please be careful when running scripts from unknown developers. This script has already been ran.
+	    [[COPIA, MAS NÃO FAZ IGUAL🤣🤣
 
 
+<font transparency='0.3'>100% BR 🇧🇷</font>]],
 
-<font transparency='0.3'>Some scripts may steal your items or in-game goods.</font>]],
-
-		'Okay',
+		'Fecho cachorro',
 
 		'',
 
