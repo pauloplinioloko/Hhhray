@@ -730,7 +730,6 @@ local RayfieldLibrary = {
 			TextColor = Color3.fromRGB(255, 222, 173),
 
 
-
 			Background = Color3.fromRGB(205, 133, 63),
 
 			Topbar = Color3.fromRGB(218, 165, 32),
@@ -813,7 +812,6 @@ local RayfieldLibrary = {
 			TextColor = Color3.fromRGB(176, 196, 222),
 
 
-
 			Background = Color3.fromRGB(25, 25, 112),
 
 			Topbar = Color3.fromRGB(72, 61, 139),
@@ -891,11 +889,9 @@ local RayfieldLibrary = {
 		},
 
 
-
 		semnexo = {
 
 			TextColor = Color3.fromRGB(218, 165, 32),
-
 
 
 			Background = Color3.fromRGB(0, 0, 0),
@@ -1059,7 +1055,6 @@ local RayfieldLibrary = {
 		Bloom = {
 
 			TextColor = Color3.fromRGB(60, 40, 50),
-
 
 
 			Background = Color3.fromRGB(255, 240, 245),
