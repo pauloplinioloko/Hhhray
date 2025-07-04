@@ -725,7 +725,7 @@ local RayfieldLibrary = {
 		},
 
 
-		AmberGlow = {
+		Praia = {
 
 			TextColor = Color3.fromRGB(255, 222, 173),
 
@@ -975,85 +975,85 @@ local RayfieldLibrary = {
 
 
 
-		Green = {
+		Corinthians = {
 
-			TextColor = Color3.fromRGB(30, 60, 30),
-
-
-
-			Background = Color3.fromRGB(235, 245, 235),
-
-			Topbar = Color3.fromRGB(210, 230, 210),
-
-			Shadow = Color3.fromRGB(200, 220, 200),
+			TextColor = Color3.fromRGB(255, 255, 255),
 
 
 
-			NotificationBackground = Color3.fromRGB(240, 250, 240),
+			Background = Color3.fromRGB(0, 0, 0),
 
-			NotificationActionsBackground = Color3.fromRGB(220, 235, 220),
+			Topbar = Color3.fromRGB(20, 20, 20),
 
-
-
-			TabBackground = Color3.fromRGB(215, 235, 215),
-
-			TabStroke = Color3.fromRGB(190, 210, 190),
-
-			TabBackgroundSelected = Color3.fromRGB(245, 255, 245),
-
-			TabTextColor = Color3.fromRGB(50, 80, 50),
-
-			SelectedTabTextColor = Color3.fromRGB(20, 60, 20),
+			Shadow = Color3.fromRGB(10, 10, 10),
 
 
 
-			ElementBackground = Color3.fromRGB(225, 240, 225),
+			NotificationBackground = Color3.fromRGB(30, 30, 30),
 
-			ElementBackgroundHover = Color3.fromRGB(210, 225, 210),
-
-			SecondaryElementBackground = Color3.fromRGB(235, 245, 235), 
-
-			ElementStroke = Color3.fromRGB(180, 200, 180),
-
-			SecondaryElementStroke = Color3.fromRGB(180, 200, 180),
+			NotificationActionsBackground = Color3.fromRGB(255, 255, 255),
 
 
 
-			SliderBackground = Color3.fromRGB(90, 160, 90),
+			TabBackground = Color3.fromRGB(40, 40, 40),
 
-			SliderProgress = Color3.fromRGB(70, 130, 70),
+			TabStroke = Color3.fromRGB(200, 0, 0),
 
-			SliderStroke = Color3.fromRGB(100, 180, 100),
+			TabBackgroundSelected = Color3.fromRGB(255, 255, 255),
 
+			TabTextColor = Color3.fromRGB(255, 255, 255),
 
-
-			ToggleBackground = Color3.fromRGB(215, 235, 215),
-
-			ToggleEnabled = Color3.fromRGB(60, 130, 60),
-
-			ToggleDisabled = Color3.fromRGB(150, 175, 150),
-
-			ToggleEnabledStroke = Color3.fromRGB(80, 150, 80),
-
-			ToggleDisabledStroke = Color3.fromRGB(130, 150, 130),
-
-			ToggleEnabledOuterStroke = Color3.fromRGB(100, 160, 100),
-
-			ToggleDisabledOuterStroke = Color3.fromRGB(160, 180, 160),
+			SelectedTabTextColor = Color3.fromRGB(200, 0, 0),
 
 
 
-			DropdownSelected = Color3.fromRGB(225, 240, 225),
+			ElementBackground = Color3.fromRGB(20, 20, 20),
 
-			DropdownUnselected = Color3.fromRGB(210, 225, 210),
+			ElementBackgroundHover = Color3.fromRGB(50, 50, 50),
+
+			SecondaryElementBackground = Color3.fromRGB(40, 40, 40),
+
+			ElementStroke = Color3.fromRGB(255, 255, 255),
+
+			SecondaryElementStroke = Color3.fromRGB(200, 0, 0),
 
 
 
-			InputBackground = Color3.fromRGB(235, 245, 235),
+			SliderBackground = Color3.fromRGB(60, 60, 60),
 
-			InputStroke = Color3.fromRGB(180, 200, 180),
+			SliderProgress = Color3.fromRGB(255, 255, 255),
 
-			PlaceholderColor = Color3.fromRGB(120, 140, 120)
+			SliderStroke = Color3.fromRGB(200, 0, 0),
+
+
+
+			ToggleBackground = Color3.fromRGB(30, 30, 30),
+
+			ToggleEnabled = Color3.fromRGB(255, 255, 255),
+
+			ToggleDisabled = Color3.fromRGB(100, 100, 100),
+
+			ToggleEnabledStroke = Color3.fromRGB(255, 0, 0),
+
+			ToggleDisabledStroke = Color3.fromRGB(70, 70, 70),
+
+			ToggleEnabledOuterStroke = Color3.fromRGB(200, 0, 0),
+
+			ToggleDisabledOuterStroke = Color3.fromRGB(50, 50, 50),
+
+
+
+			DropdownSelected = Color3.fromRGB(255, 255, 255),
+
+			DropdownUnselected = Color3.fromRGB(30, 30, 30),
+
+
+
+			InputBackground = Color3.fromRGB(40, 40, 40),
+
+			InputStroke = Color3.fromRGB(255, 255, 255),
+
+			PlaceholderColor = Color3.fromRGB(200, 0, 0)
 
 		},
 
