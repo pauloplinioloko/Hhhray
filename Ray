@@ -2361,15 +2361,15 @@ local function Hide(notify: boolean?)
 
 	if MPrompt then
 
-		MPrompt.Title.TextColor3 = Color3.fromRGB(150, 25, 25)
+		MPrompt.Title.TextColor3 = Color3.fromRGB(190, 155, 0)
 
-		MPrompt.Position = UDim2.new(0.5, 0, 0, -50)
+		MPrompt.Position = UDim2.new(0.5, 0, 0, -5)
 
-		MPrompt.Size = UDim2.new(0, 40, 0, 10)
+		MPrompt.Size = UDim2.new(0, 60, 0, 30)
 
-		MPrompt.BackgroundTransparency = 1
+		MPrompt.BackgroundTransparency = 0
 
-		MPrompt.Title.TextTransparency = 1
+		MPrompt.Title.TextTransparency = 0
 
 		MPrompt.Visible = true
 
