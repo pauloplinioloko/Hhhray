@@ -3661,6 +3661,11 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 			KeyMain.NoteMessage.Text = Settings.KeySettings.Note or "No instructions"
 
+                        KeyMain.Title.TextColor3 = Color3.fromRGB(250, 0, 0)
+
+                        KeyMain.Subtitle.TextColor3 = Color3.fromRGB(200, 50, 50)
+
+                        KeyMain.KeyNote.TextColor3 = Color3.fromRGB(0, 0, 0)
 
 
 			KeyMain.Size = UDim2.new(0, 467, 0, 175)
