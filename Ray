@@ -3251,7 +3251,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 	if Settings.ShowText then
 
-		MPrompt.Title.Text = 'Show '..Settings.ShowText
+		MPrompt.Title.Text = 'ABRIR '..Settings.ShowText
 
 	end
 
