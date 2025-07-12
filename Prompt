@@ -27,10 +27,10 @@ local function open(prompt)
         prompt.Policy.BackgroundColor3 = Color3.fromRGB(236, 231, 38)
         prompt.Policy.Title.TextColor3 = Color3.fromRGB(90, 0, 0)
         prompt.Policy.Notice.TextColor3 = Color3.fromRGB(1, 1, 1)
-        prompt.Policy.Actions.Primary.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-        prompt.Policy.Actions.Primary.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-        prompt.Policy.Actions.Secondary.BackgroundColor3 = Color3.fromRGB(255, 85, 85)
-        prompt.Policy.Actions.Secondary.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+        prompt.Policy.Actions.Primary.BackgroundColor3 = Color3.fromRGB(255, 32, 44)
+        prompt.Policy.Actions.Primary.Title.TextColor3 = Color3.fromRGB(255, 10, 10)
+        prompt.Policy.Actions.Secondary.BackgroundColor3 = Color3.fromRGB(130, 0, 0)
+        prompt.Policy.Actions.Secondary.Title.TextColor3 = Color3.fromRGB(0, 0, 0)
 
 	-- Show the prompt
 	prompt.Policy.Visible = true
