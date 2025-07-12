@@ -16,7 +16,6 @@ local debounce = false
 local function open(prompt)
 	debounce = true
 	prompt.Policy.Size = UDim2.new(0, 400, 0, 120)
-
 	prompt.Policy.BackgroundTransparency = 1
 	prompt.Policy.Shadow.Image.ImageTransparency = 1
 	prompt.Policy.Title.TextTransparency = 1
@@ -25,13 +24,13 @@ local function open(prompt)
 	prompt.Policy.Actions.Primary.Shadow.ImageTransparency = 1
 	prompt.Policy.Actions.Primary.Title.TextTransparency = 1
 	prompt.Policy.Actions.Secondary.Title.TextTransparency = 1
-    prompt.Policy.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- Fundo escuro
-    prompt.Policy.Title.TextColor3 = Color3.fromRGB(255, 255, 255) -- Título branco
-    prompt.Policy.Notice.TextColor3 = Color3.fromRGB(180, 180, 180) -- Descrição cinza
-    prompt.Policy.Actions.Primary.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-    prompt.Policy.Actions.Primary.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-    prompt.Policy.Actions.Secondary.BackgroundColor3 = Color3.fromRGB(255, 85, 85)
-    prompt.Policy.Actions.Secondary.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+        prompt.Policy.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+        prompt.Policy.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+        prompt.Policy.Notice.TextColor3 = Color3.fromRGB(180, 180, 180)
+        prompt.Policy.Actions.Primary.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+        prompt.Policy.Actions.Primary.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+        prompt.Policy.Actions.Secondary.BackgroundColor3 = Color3.fromRGB(255, 85, 85)
+        prompt.Policy.Actions.Secondary.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 
 	-- Show the prompt
 	prompt.Policy.Visible = true
