@@ -2376,7 +2376,7 @@ local function Hide(notify: boolean?)
 
                 MPrompt.BackgroundColor3 = Color3.fromRGB(114, 0, 0)
 
-                MPrompt.Position = UDim2.new(0.5, 0, 0, -5)
+                MPrompt.Position = UDim2.new(1, -65, 0, 10)
 
 		MPrompt.Size = UDim2.new(0, 60, 0, 30)
 
