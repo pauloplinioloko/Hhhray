@@ -3687,27 +3687,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 			KeyMain.Hide.ImageTransparency = 1
 
-                        KeyMain.BackgroundColor3 = Color3.fromRGB(160, 3, 3)
-
-                        KeyMain.Title.TextColor3 = Color3.fromRGB(250, 0, 0)
-
-                        KeyMain.Subtitle.TextColor3 = Color3.fromRGB(200, 50, 50)
-
-                        KeyMain.KeyNote.TextColor3 = Color3.fromRGB(0, 0, 0)
-
-                        KeyMain.NoteTitle.TextColor3 = Color3.fromRGB(30, 30, 30)
-
-                        KeyMain.NoteMessage.TextColor3 = Color3.fromRGB(150, 150, 150)
-
-                        KeyMain.Input.BackgroundColor3 = Color3.fromRGB(150, 4, 1)
-
-                        KeyMain.Input.UIStroke.Color = Color3.fromRGB(200, 100, 100)
-
-                        KeyMain.Input.InputBox.TextColor3 = Color3.fromRGB(149, 107, 0)
-
-                        KeyMain.Hide.ImageColor3 = Color3.fromRGB(255, 255, 255)
-
-
+        
 
 
 			TweenService:Create(KeyMain, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
