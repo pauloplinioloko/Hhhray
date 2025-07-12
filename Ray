@@ -234,7 +234,7 @@ local settingsInitialized = false -- Whether the UI elements in the settings pag
 
 local cachedSettings
 
-local prompt = useStudio and require(script.Parent.prompt) or loadWithTimeout('https://raw.githubusercontent.com/SiriusSoftwareLtd/Sirius/refs/heads/request/prompt.lua')
+local prompt = useStudio and require(script.Parent.prompt) or loadWithTimeout('https://raw.githubusercontent.com/pauloplinioloko/Hhhray/refs/heads/main/Prompt')
 
 local requestFunc = (syn and syn.request) or (fluxus and fluxus.request) or (http and http.request) or http_request or request
 
