@@ -2095,15 +2095,15 @@ function RayfieldLibrary:Notify(data) -- action e.g open messages
 
 
 
-		local titleColor = Color3.fromRGB(255, 200, 0)
+		local titleColor = Color3.fromRGB(0, 0, 79)
 
-                local descriptionColor = Color3.fromRGB(200, 255, 200)
+                local descriptionColor = Color3.fromRGB(255, 225, 54)
 
-                local backgroundColor = Color3.fromRGB(30, 30, 30)
+                local backgroundColor = Color3.fromRGB(0, 0, 0)
 
                 local strokeColor = Color3.fromRGB(255, 0, 0)
   
-                local iconColor = Color3.fromRGB(0, 170, 255)
+                local iconColor = Color3.fromRGB(255, 255, 255)
 
 
                 newNotification.Title.TextColor3 = titleColor
