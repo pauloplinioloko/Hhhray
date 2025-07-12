@@ -24,14 +24,151 @@ local function open(prompt)
 	prompt.Policy.Actions.Primary.Shadow.ImageTransparency = 1
 	prompt.Policy.Actions.Primary.Title.TextTransparency = 1
 	prompt.Policy.Actions.Secondary.Title.TextTransparency = 1
-        prompt.Policy.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-        prompt.Policy.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-        prompt.Policy.Notice.TextColor3 = Color3.fromRGB(180, 180, 180)
-        prompt.Policy.Actions.Primary.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-        prompt.Policy.Actions.Primary.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-        prompt.Policy.Actions.Secondary.BackgroundColor3 = Color3.fromRGB(255, 85, 85)
-        prompt.Policy.Actions.Secondary.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+        local RunService = game:GetService("RunService")
 
+local rgbConnection -- variável para desconectar depois
+
+local function getRainbowColor(t)
+	local r = (math.sin(t) + 1) / 2
+	local g = (math.sin(t + 2*math.pi/3) + 1) / 2
+	local b = (math.sin(t + 4*math.pi/3) + 1) / 2
+	return Color3.new(r, g, b)
+end
+
+local function close(prompt)
+	-- Desconecta loop RGB para evitar vazamento
+	if rgbConnection then
+		rgbConnection:Disconnect()
+		rgbConnection = nil
+	end
+	
+	
+	debounce = true
+	tweenService:Create(prompt.Policy, TweenInfo.new(0.3, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Size = UDim2.new(0, 400, 0, 110)}):Play()
+
+	tweenService:Create(prompt.Policy.Title, TweenInfo.new(0.35, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {TextTransparency = 1}):Play()
+	tweenService:Create(prompt.Policy.Notice, TweenInfo.new(0.25, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {TextTransparency = 1}):Play()
+
+	tweenService:Create(prompt.Policy.Actions.Secondary.Title, TweenInfo.new(0.25, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {TextTransparency = 1}):Play()
+
+	tweenService:Create(prompt.Policy.Actions.Primary, TweenInfo.new(0.4, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+	tweenService:Create(prompt.Policy.Actions.Primary.Title, TweenInfo.new(0.25, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {TextTransparency = 1}):Play()
+	tweenService:Create(prompt.Policy.Actions.Primary.Shadow, TweenInfo.new(0.25, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
+	
+	tweenService:Create(prompt.Policy, TweenInfo.new(0.2, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+	tweenService:Create(prompt.Policy.Shadow.Image, TweenInfo.new(0.25, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
+	
+	task.wait(1)
+	
+	prompt:Destroy()
+	fin = true
+end
+
+function promptRet.create(title, description, primary, secondary, callback)
+	local prompt = useStudio and script.Parent:FindFirstChild('WarningPrompt') or game:GetObjects("rbxassetid://76963332287827")[1]
+
+	prompt.Enabled = false
+
+	if gethui then
+		prompt.Parent = gethui()
+	elseif syn and syn.protect_gui then 
+		syn.protect_gui(prompt)
+		prompt.Parent = coreGui
+	elseif not useStudio and coreGui:FindFirstChild("RobloxGui") then
+		prompt.Parent = coreGui:FindFirstChild("RobloxGui")
+	elseif not useStudio then
+		prompt.Parent = coreGui
+	end
+
+	-- Disable other instances of the prompt
+	if gethui then
+		for _, Interface in ipairs(gethui():GetChildren()) do
+			if Interface.Name == prompt.Name and Interface ~= prompt then
+				Interface.Enabled = false
+				Interface.Name = "Prompt-Old"
+			end
+		end
+	elseif not useStudio then
+		for _, Interface in ipairs(coreGui:GetChildren()) do
+			if Interface.Name == prompt.Name and Interface ~= prompt then
+				Interface.Enabled = false
+				Interface.Name = "Prompt-Old"
+			end
+		end
+	end
+
+	-- Set the prompt text
+	prompt.Policy.Title.Text = title
+	prompt.Policy.Notice.Text = description
+	prompt.Policy.Actions.Primary.Title.Text = primary
+	prompt.Policy.Actions.Secondary.Title.Text = secondary
+	
+	-- Define as cores fixas iniciais para texto
+	prompt.Policy.Title.TextColor3 = Color3.fromRGB(255, 255, 255)  -- Título branco
+	prompt.Policy.Notice.TextColor3 = Color3.fromRGB(200, 200, 200)  -- Descrição cinza claro
+
+	prompt.Policy.Actions.Primary.Title.TextColor3 = Color3.fromRGB(255, 255, 255) -- Texto botão primário branco
+	prompt.Policy.Actions.Secondary.Title.TextColor3 = Color3.fromRGB(255, 255, 255) -- Texto botão secundário branco
+
+	-- Loop RGB que anima o fundo e os botões
+	local startTime = tick()
+	rgbConnection = RunService.Heartbeat:Connect(function()
+		local elapsed = tick() - startTime
+		local color = getRainbowColor(elapsed * 2)
+
+		if prompt and prompt.Policy and prompt.Policy.Actions then
+			prompt.Policy.BackgroundColor3 = color
+			prompt.Policy.Actions.Primary.BackgroundColor3 = color
+			-- Cor complementar para o botão secundário
+			prompt.Policy.Actions.Secondary.BackgroundColor3 = Color3.new(1 - color.r, 1 - color.g, 1 - color.b)
+		else
+			if rgbConnection then
+				rgbConnection:Disconnect()
+				rgbConnection = nil
+			end
+		end
+	end)
+
+	-- Connect button clicks
+	prompt.Policy.Actions.Primary.Interact.MouseButton1Click:Connect(function()
+		close(prompt)
+		if callback then callback(true) end
+	end)
+
+	prompt.Policy.Actions.Secondary.Interact.MouseButton1Click:Connect(function()
+		close(prompt)
+		if callback then callback(false) end
+	end)
+	
+	-- Outros eventos de hover (se quiser manter)
+	prompt.Policy.Actions.Primary.Interact.MouseEnter:Connect(function()
+		if debounce then return end
+		tweenService:Create(prompt.Policy.Actions.Primary, TweenInfo.new(0.4, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
+		tweenService:Create(prompt.Policy.Actions.Primary.Title, TweenInfo.new(0.4, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {TextTransparency = 0}):Play()
+		tweenService:Create(prompt.Policy.Actions.Primary.Shadow, TweenInfo.new(0.4, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {ImageTransparency = 0.45}):Play()
+	end)
+	
+	prompt.Policy.Actions.Primary.Interact.MouseLeave:Connect(function()
+		if debounce then return end
+		tweenService:Create(prompt.Policy.Actions.Primary, TweenInfo.new(0.4, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {BackgroundTransparency = 0.2}):Play()
+		tweenService:Create(prompt.Policy.Actions.Primary.Title, TweenInfo.new(0.4, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {TextTransparency = 0.2}):Play()
+		tweenService:Create(prompt.Policy.Actions.Primary.Shadow, TweenInfo.new(0.4, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {ImageTransparency = 0.7}):Play()
+	end)
+
+	prompt.Policy.Actions.Secondary.Interact.MouseEnter:Connect(function()
+		if debounce then return end
+		tweenService:Create(prompt.Policy.Actions.Secondary.Title, TweenInfo.new(0.4, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {TextTransparency = 0.3}):Play()
+	end)
+	
+	prompt.Policy.Actions.Secondary.Interact.MouseLeave:Connect(function()
+		if debounce then return end
+		tweenService:Create(prompt.Policy.Actions.Secondary.Title, TweenInfo.new(0.4, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {TextTransparency = 0.6}):Play()
+	end)
+
+	task.wait(0.5)
+
+	task.spawn(open, prompt)
+end
 	-- Show the prompt
 	prompt.Policy.Visible = true
 	prompt.Enabled = true
