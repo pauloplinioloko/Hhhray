@@ -24,9 +24,9 @@ local function open(prompt)
 	prompt.Policy.Actions.Primary.Shadow.ImageTransparency = 1
 	prompt.Policy.Actions.Primary.Title.TextTransparency = 1
 	prompt.Policy.Actions.Secondary.Title.TextTransparency = 1
-        prompt.Policy.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-        prompt.Policy.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-        prompt.Policy.Notice.TextColor3 = Color3.fromRGB(180, 180, 180)
+        prompt.Policy.BackgroundColor3 = Color3.fromRGB(236, 231, 38)
+        prompt.Policy.Title.TextColor3 = Color3.fromRGB(90, 0, 0)
+        prompt.Policy.Notice.TextColor3 = Color3.fromRGB(1, 1, 1)
         prompt.Policy.Actions.Primary.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
         prompt.Policy.Actions.Primary.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
         prompt.Policy.Actions.Secondary.BackgroundColor3 = Color3.fromRGB(255, 85, 85)
