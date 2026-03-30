@@ -1,0 +1,376 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Window = Rayfield:CreateWindow({
+Name = "👁️ ESP + Big Heads + Speed",
+Icon = 0,
+LoadingTitle = "Visual System",
+LoadingSubtitle = "by Script",
+Theme = "Default",
+ConfigurationSaving = { Enabled = true, FileName = "VisualConfig" },
+KeySystem = false
+})
+
+local Camera = workspace.CurrentCamera
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+
+-- Variáveis
+local ESPEnabled = false
+local ESPLine = false
+local ESPSkeleton = false
+local ESPBox = false
+local ESPName = false
+local ESPHealth = false
+
+local BigHeadsEnabled = false
+local HeadScaleMultiplier = 2.5
+local OriginalHeadData = {}  -- Armazena dados originais
+
+local SpeedEnabled = false
+local CustomSpeed = 50
+
+local ESPObjects = {}
+
+local function IsEnemy(player)
+if player == LocalPlayer then return false end
+if not LocalPlayer.Team then return true end
+if not player.Team then return true end
+return player.Team ~= LocalPlayer.Team
+end
+
+-- ==================== ESP FUNCTIONS ====================
+local function CreateESP(player)
+if player == LocalPlayer or ESPObjects[player] then return end
+
+local espObj = {  
+    Line = Drawing.new("Line"),  
+    Box = {  
+        TopLeft = Drawing.new("Line"), TopRight = Drawing.new("Line"),  
+        BottomLeft = Drawing.new("Line"), BottomRight = Drawing.new("Line")  
+    },  
+    Name = Drawing.new("Text"),  
+    HealthBar = { Outline = Drawing.new("Line"), Bar = Drawing.new("Line") },  
+    Skeleton = {  
+        Head_UpperTorso = Drawing.new("Line"), UpperTorso_LowerTorso = Drawing.new("Line"),  
+        UpperTorso_LeftUpperArm = Drawing.new("Line"), LeftUpperArm_LeftLowerArm = Drawing.new("Line"),  
+        LeftLowerArm_LeftHand = Drawing.new("Line"), UpperTorso_RightUpperArm = Drawing.new("Line"),  
+        RightUpperArm_RightLowerArm = Drawing.new("Line"), RightLowerArm_RightHand = Drawing.new("Line"),  
+        LowerTorso_LeftUpperLeg = Drawing.new("Line"), LeftUpperLeg_LeftLowerLeg = Drawing.new("Line"),  
+        LeftLowerLeg_LeftFoot = Drawing.new("Line"), LowerTorso_RightUpperLeg = Drawing.new("Line"),  
+        RightUpperLeg_RightLowerLeg = Drawing.new("Line"), RightLowerLeg_RightFoot = Drawing.new("Line")  
+    }  
+}  
+
+espObj.Line.Thickness = 1.5  
+espObj.Line.Transparency = 1  
+
+for _, line in pairs(espObj.Box) do  
+    line.Thickness = 1.5  
+    line.Transparency = 1  
+end  
+
+espObj.Name.Size = 15  
+espObj.Name.Center = true  
+espObj.Name.Outline = true  
+espObj.Name.Transparency = 1  
+
+espObj.HealthBar.Outline.Thickness = 3  
+espObj.HealthBar.Outline.Color = Color3.fromRGB(0,0,0)  
+espObj.HealthBar.Bar.Thickness = 1.5  
+
+for _, line in pairs(espObj.Skeleton) do  
+    line.Thickness = 1.2  
+    line.Transparency = 1  
+end  
+
+ESPObjects[player] = espObj
+
+end
+
+local function RemoveESP(player)
+if not ESPObjects[player] then return end
+local obj = ESPObjects[player]
+obj.Line:Remove()
+for _, v in pairs(obj.Box) do v:Remove() end
+obj.Name:Remove()
+obj.HealthBar.Outline:Remove()
+obj.HealthBar.Bar:Remove()
+for _, v in pairs(obj.Skeleton) do v:Remove() end
+ESPObjects[player] = nil
+end
+
+local function UpdateESP()
+for player, esp in pairs(ESPObjects) do
+if not player.Character then RemoveESP(player) continue end
+local char = player.Character
+local root = char:FindFirstChild("HumanoidRootPart")
+local head = char:FindFirstChild("Head")
+local humanoid = char:FindFirstChildOfClass("Humanoid")
+if not root or not head then continue end
+
+local rootPos, onScreen = Camera:WorldToViewportPoint(root.Position)  
+    if not onScreen then   
+        esp.Line.Visible = false  
+        for _,v in pairs(esp.Box) do v.Visible = false end  
+        esp.Name.Visible = false  
+        esp.HealthBar.Outline.Visible = false  
+        esp.HealthBar.Bar.Visible = false  
+        for _,v in pairs(esp.Skeleton) do v.Visible = false end  
+        continue   
+    end  
+
+    local headPos = Camera:WorldToViewportPoint(head.Position + Vector3.new(0, 0.5, 0))  
+    local color = IsEnemy(player) and Color3.fromRGB(255, 0, 0) or Color3.fromRGB(0, 255, 0)  
+
+    -- Line  
+    if ESPEnabled and ESPLine then  
+        esp.Line.From = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y)  
+        esp.Line.To = Vector2.new(rootPos.X, rootPos.Y)  
+        esp.Line.Color = color  
+        esp.Line.Visible = true  
+    else  
+        esp.Line.Visible = false  
+    end  
+
+    -- Box  
+    if ESPEnabled and ESPBox then  
+        local dist = (Camera.CFrame.Position - root.Position).Magnitude  
+        local scale = 1000 / dist  
+        local w, h = scale * 3, scale * 4.5  
+
+        local tl = Vector2.new(rootPos.X - w/2, headPos.Y)  
+        local tr = Vector2.new(rootPos.X + w/2, headPos.Y)  
+        local bl = Vector2.new(rootPos.X - w/2, rootPos.Y + h/2)  
+        local br = Vector2.new(rootPos.X + w/2, rootPos.Y + h/2)  
+
+        esp.Box.TopLeft.From = tl; esp.Box.TopLeft.To = tr; esp.Box.TopLeft.Color = color; esp.Box.TopLeft.Visible = true  
+        esp.Box.TopRight.From = tr; esp.Box.TopRight.To = br; esp.Box.TopRight.Color = color; esp.Box.TopRight.Visible = true  
+        esp.Box.BottomLeft.From = bl; esp.Box.BottomLeft.To = br; esp.Box.BottomLeft.Color = color; esp.Box.BottomLeft.Visible = true  
+        esp.Box.BottomRight.From = tl; esp.Box.BottomRight.To = bl; esp.Box.BottomRight.Color = color; esp.Box.BottomRight.Visible = true  
+    else  
+        for _, line in pairs(esp.Box) do line.Visible = false end  
+    end  
+
+    -- Name  
+    if ESPEnabled and ESPName then  
+        esp.Name.Position = Vector2.new(headPos.X, headPos.Y - 18)  
+        esp.Name.Text = player.Name  
+        esp.Name.Color = color  
+        esp.Name.Visible = true  
+    else  
+        esp.Name.Visible = false  
+    end  
+
+    -- Health  
+    if ESPEnabled and ESPHealth and humanoid then  
+        local dist = (Camera.CFrame.Position - root.Position).Magnitude  
+        local scale = 1000 / dist  
+        local height = scale * 4.5  
+        local hpPercent = humanoid.Health / humanoid.MaxHealth  
+        local barHeight = height * hpPercent  
+        local barX = rootPos.X - (scale * 3 / 2) - 6  
+
+        esp.HealthBar.Outline.From = Vector2.new(barX, headPos.Y)  
+        esp.HealthBar.Outline.To = Vector2.new(barX, rootPos.Y + height/2)  
+        esp.HealthBar.Outline.Visible = true  
+
+        local barColor = hpPercent > 0.6 and Color3.fromRGB(0,255,0) or (hpPercent > 0.3 and Color3.fromRGB(255,255,0) or Color3.fromRGB(255,0,0))  
+        esp.HealthBar.Bar.Color = barColor  
+        esp.HealthBar.Bar.From = Vector2.new(barX, rootPos.Y + height/2)  
+        esp.HealthBar.Bar.To = Vector2.new(barX, rootPos.Y + height/2 - barHeight)  
+        esp.HealthBar.Bar.Visible = true  
+    else  
+        esp.HealthBar.Outline.Visible = false  
+        esp.HealthBar.Bar.Visible = false  
+    end  
+
+    -- Skeleton  
+    if ESPEnabled and ESPSkeleton then  
+        local function gp(partName)  
+            local part = char:FindFirstChild(partName)  
+            if part then  
+                local pos, vis = Camera:WorldToViewportPoint(part.Position)  
+                if vis then return Vector2.new(pos.X, pos.Y) end  
+            end  
+            return nil  
+        end  
+
+        local pts = {  
+            Head = gp("Head"), UpperTorso = gp("UpperTorso"), LowerTorso = gp("LowerTorso"),  
+            LUpperArm = gp("LeftUpperArm"), LLowerArm = gp("LeftLowerArm"), LHand = gp("LeftHand"),  
+            RUpperArm = gp("RightUpperArm"), RLowerArm = gp("RightLowerArm"), RHand = gp("RightHand"),  
+            LUpperLeg = gp("LeftUpperLeg"), LLowerLeg = gp("LeftLowerLeg"), LFoot = gp("LeftFoot"),  
+            RUpperLeg = gp("RightUpperLeg"), RLowerLeg = gp("RightLowerLeg"), RFoot = gp("RightFoot")  
+        }  
+
+        local links = {  
+            {pts.Head, pts.UpperTorso, "Head_UpperTorso"},  
+            {pts.UpperTorso, pts.LowerTorso, "UpperTorso_LowerTorso"},  
+            {pts.UpperTorso, pts.LUpperArm, "UpperTorso_LeftUpperArm"},  
+            {pts.LUpperArm, pts.LLowerArm, "LeftUpperArm_LeftLowerArm"},  
+            {pts.LLowerArm, pts.LHand, "LeftLowerArm_LeftHand"},  
+            {pts.UpperTorso, pts.RUpperArm, "UpperTorso_RightUpperArm"},  
+            {pts.RUpperArm, pts.RLowerArm, "RightUpperArm_RightLowerArm"},  
+            {pts.RLowerArm, pts.RHand, "RightLowerArm_RightHand"},  
+            {pts.LowerTorso, pts.LUpperLeg, "LowerTorso_LeftUpperLeg"},  
+            {pts.LUpperLeg, pts.LLowerLeg, "LeftUpperLeg_LeftLowerLeg"},  
+            {pts.LLowerLeg, pts.LFoot, "LeftLowerLeg_LeftFoot"},  
+            {pts.LowerTorso, pts.RUpperLeg, "LowerTorso_RightUpperLeg"},  
+            {pts.RUpperLeg, pts.RLowerLeg, "RightUpperLeg_RightLowerLeg"},  
+            {pts.RLowerLeg, pts.RFoot, "RightLowerLeg_RightFoot"}  
+        }  
+
+        for _, link in ipairs(links) do  
+            if link[1] and link[2] then  
+                esp.Skeleton[link[3]].From = link[1]  
+                esp.Skeleton[link[3]].To = link[2]  
+                esp.Skeleton[link[3]].Color = color  
+                esp.Skeleton[link[3]].Visible = true  
+            else  
+                esp.Skeleton[link[3]].Visible = false  
+            end  
+        end  
+    else  
+        for _, line in pairs(esp.Skeleton) do line.Visible = false end  
+    end  
+end
+
+end
+
+-- ==================== BIG HEADS ====================
+-- ==================== BIG HEADS (FORÇADO EXECUTOR) ====================
+local function ApplyBigHead(character)
+    local head = character:FindFirstChild("Head")
+    if not head then return end
+
+    local scale = HeadScaleMultiplier
+
+    pcall(function()
+        head.Size = Vector3.new(2,2,2) * scale
+    end)
+
+    local mesh = head:FindFirstChildOfClass("SpecialMesh")
+    if mesh then
+        mesh.Scale = Vector3.new(scale, scale, scale)
+    end
+
+    pcall(function()
+        head.MeshScale = Vector3.new(scale, scale, scale)
+    end)
+
+    head.CanCollide = false
+    head.Massless = true
+end
+
+local function UpdateAllHeads()
+    if not BigHeadsEnabled then return end
+
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer then
+            local char = player.Character
+            if char then
+                ApplyBigHead(char)
+            end
+        end
+    end
+end
+
+-- LOOP FORÇADO (ESSA PARTE É O SEGREDO)
+task.spawn(function()
+    while true do
+        if BigHeadsEnabled then
+            UpdateAllHeads()
+        end
+        task.wait(0.2)
+    end
+end)
+
+-- ==================== SPEED ====================
+local function ApplySpeed()
+if LocalPlayer.Character then
+local hum = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+if hum then
+hum.WalkSpeed = SpeedEnabled and CustomSpeed or 16
+end
+end
+end
+
+-- ==================== CONEXÕES ====================
+Players.PlayerAdded:Connect(function(player)
+if ESPEnabled then CreateESP(player) end
+
+player.CharacterAdded:Connect(function()  
+    task.wait(0.4)  
+    MakeHeadBig(player)  
+end)  
+if player.Character then task.wait(0.4) MakeHeadBig(player) end
+
+end)
+
+Players.PlayerRemoving:Connect(RemoveESP)
+
+LocalPlayer.CharacterAdded:Connect(function()
+task.wait(0.6)
+ApplySpeed()
+end)
+
+RunService.RenderStepped:Connect(function()
+if ESPEnabled then UpdateESP() end
+end)
+
+-- ==================== INTERFACE ====================
+local Tab = Window:CreateTab("👁️ Visuals", nil)
+
+Tab:CreateSection("ESP")
+Tab:CreateToggle({Name = "Ativar Todo ESP", CurrentValue = false, Callback = function(v)
+ESPEnabled = v
+if v then
+for _, p in pairs(Players:GetPlayers()) do CreateESP(p) end
+else
+for p in pairs(ESPObjects) do RemoveESP(p) end
+end
+end})
+
+Tab:CreateSection("ESP Opções")
+Tab:CreateToggle({Name = "ESP Linha", CurrentValue = false, Callback = function(v) ESPLine = v end})
+Tab:CreateToggle({Name = "ESP Box", CurrentValue = false, Callback = function(v) ESPBox = v end})
+Tab:CreateToggle({Name = "ESP Nome", CurrentValue = false, Callback = function(v) ESPName = v end})
+Tab:CreateToggle({Name = "ESP Vida", CurrentValue = false, Callback = function(v) ESPHealth = v end})
+Tab:CreateToggle({Name = "ESP Esqueleto", CurrentValue = false, Callback = function(v) ESPSkeleton = v end})
+
+Tab:CreateSection("🧠 Big Heads")
+Tab:CreateToggle({Name = "Ativar Big Heads", CurrentValue = false, Callback = function(v)
+BigHeadsEnabled = v
+UpdateAllHeads()
+end})
+
+Tab:CreateSlider({Name = "Tamanho da Cabeça", Range = {1, 8}, Increment = 0.1, CurrentValue = 2.5, Suffix = "x",
+Callback = function(v)
+HeadScaleMultiplier = v
+if BigHeadsEnabled then UpdateAllHeads() end
+end
+})
+
+Tab:CreateSection("⚡ Speed")
+Tab:CreateToggle({Name = "Ativar Speed", CurrentValue = false, Callback = function(v)
+SpeedEnabled = v
+ApplySpeed()
+end})
+
+Tab:CreateSlider({Name = "Velocidade do Personagem", Range = {16, 200}, Increment = 1, CurrentValue = 50, Suffix = " studs/s",
+Callback = function(v)
+CustomSpeed = v
+if SpeedEnabled then ApplySpeed() end
+end
+})
+
+-- Inicialização
+for _, player in pairs(Players:GetPlayers()) do
+CreateESP(player)
+task.wait(0.3)
+MakeHeadBig(player)
+end
+
+if LocalPlayer.Character then ApplySpeed() end
+
+Rayfield:Notify({Title = "Script Carregado!", Content = "ESP completo + Big Heads + Speed", Duration = 5})
