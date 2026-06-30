@@ -1,0 +1,123 @@
+{
+  "ok": true,
+  "consulta": "cpf",
+  "cpf": "37616125832",
+  "response": {
+    "Cadastro": [
+      {
+        "IdUnico": "29073086",
+        "Doc": "37616125832",
+        "Nome": "MILTON TADEU PONTOAL FILHO                         ",
+        "Genero": "M",
+        "DataNascimento": "30/09/1987",
+        "NomeMae": "MARIA JOSE BUSSOLI",
+        "NomePai": null,
+        "TituloEleitor": "",
+        "Obito": "Não",
+        "Rg": "",
+        "Pis": "",
+        "CBO": "",
+        "Renda": 1320,
+        "Email": "miltinho53@hotmail.com",
+        "Email2": null,
+        "Signo": "Libra",
+        "Logradouro": "RUA JOAO RODRIGUES LEITE",
+        "Numero": "00196",
+        "Complemento": "CS 5",
+        "Bairro": "VILA CLARICE",
+        "Cidade": "SAO PAULO - SP",
+        "Cep": "05176080",
+        "Telefones": [
+          {
+            "DDD": "11",
+            "Telefone": "39060277",
+            "NaoPerturbe": false,
+            "Whatsapp": false,
+            "Rcs": false,
+            "BloqueioLgpd": false,
+            "TipoTelefone": "FIXO",
+            "Operadora": "NÃO IDENTIFICADA",
+            "PercentualHot": "100%",
+            "ClassificacaoGeral": 4
+          },
+          {
+            "DDD": "11",
+            "Telefone": "943468915",
+            "NaoPerturbe": false,
+            "Whatsapp": true,
+            "Rcs": true,
+            "BloqueioLgpd": false,
+            "TipoTelefone": "CELULAR",
+            "Operadora": "CLARO",
+            "PercentualHot": "80%",
+            "ClassificacaoGeral": 3
+          },
+          {
+            "DDD": "11",
+            "Telefone": "976842837",
+            "NaoPerturbe": false,
+            "Whatsapp": true,
+            "Rcs": true,
+            "BloqueioLgpd": false,
+            "TipoTelefone": "CELULAR",
+            "Operadora": "CLARO",
+            "PercentualHot": "95%",
+            "ClassificacaoGeral": 2
+          },
+          {
+            "DDD": "11",
+            "Telefone": "993820391",
+            "NaoPerturbe": false,
+            "Whatsapp": true,
+            "Rcs": true,
+            "BloqueioLgpd": false,
+            "TipoTelefone": "CELULAR",
+            "Operadora": "CLARO",
+            "PercentualHot": "100%",
+            "ClassificacaoGeral": 1
+          }
+        ],
+        "Enderecos": [
+          {
+            "TipoLogradouro": "",
+            "Bairro": "",
+            "Endereco": "AVENIDA MUTINGA",
+            "EnderecoComplemento": null,
+            "EnderecoNumero": "2897",
+            "Cep": "05110000",
+            "Cidade": "SAO PAULO",
+            "Uf": "SP"
+          }
+        ],
+        "ParticipacaoQuadroSocietario": [],
+        "Vinculos": [
+          {
+            "DocParente": "26666078870",
+            "NomeParente": "RONIER APARECIDO BUSSOLI",
+            "GrauParentesco": "TIA(O)",
+            "GeneroParente": "M"
+          },
+          {
+            "DocParente": "34293381821",
+            "NomeParente": "RUBENS BUSSOLI JUNIOR",
+            "GrauParentesco": "TIA(O)",
+            "GeneroParente": "M"
+          },
+          {
+            "DocParente": "27935869863",
+            "NomeParente": "RONALDO BUSSOLI",
+            "GrauParentesco": "TIA(O)",
+            "GeneroParente": "M"
+          },
+          {
+            "DocParente": "08560192832",
+            "NomeParente": "MARIA JOSE BUSSOLI",
+            "GrauParentesco": "MAE",
+            "GeneroParente": "F"
+          }
+        ],
+        "Veiculos": []
+      }
+    ]
+  }
+}
